@@ -499,7 +499,7 @@ class RedirectFromHTTP2HTTPSScanIssue(IScanIssue):
     def __init__(self, requestResponse, headers, helpers, callbacks):
         analyzedRequest = helpers.analyzeRequest(requestResponse)
         self.findingUrl = analyzedRequest.getUrl()
-        self.redirectURLs = map(lambda(header): header[0].group(1), headers)
+        self.redirectURLs = map(lambda header: header[0].group(1), headers)
         self.redirectURLs.sort()
         self.requestResponse = callbacks.applyMarkers(requestResponse, None, normalizePositions(extractMatchPositions(headers)))
 
@@ -695,6 +695,6 @@ def extractMatchPositions(matches, bodyOffset = 0):
         if isinstance(matches, list) and isinstance(matches[0], tuple):
             return map(lambda(match, offset): array('i', (match.start() + bodyOffset + offset, match.end() + bodyOffset + offset)), matches)
         else:
-            return map(lambda(match): array('i', (match.start() + bodyOffset, match.end() + bodyOffset)), matches)
+            return map(lambda match: array('i', (match.start() + bodyOffset, match.end() + bodyOffset)), matches)
     except IndexError:
         return list()
